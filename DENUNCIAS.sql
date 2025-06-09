@@ -36,21 +36,19 @@ CREATE TABLE ubicacion(
 );
 
 CREATE TABLE detalles_denuncia(
-	idDenuncia INT PRIMARY KEY,
+	idDenuncia INT PRIMARY KEY, 
 	victima varchar(100),
 	agresor varchar(100),
 	relacionAgresor varchar(20) CHECK (relacionAgresor IN ('Ninguna', 'Conocido/a', 'Amistad', 'Pareja')),
-	medio varchar(20) CHECK (medio IN ('Virtual', 'Presencial', 'OTRO')),
+	medio varchar(20) CHECK (medio IN ('Virtual', 'Presencial')),
 	testigos bit,
 	frecuencia varchar(20) CHECK (frecuencia IN ('Primera Vez', 'Ocasionalmente', 'Frecuentemente', 'Repetitivo')),
 	menoresInvolucrados bit,
 	sintomas varchar(50),
-	duracionAproximada varchar(50),
 	heridas varchar(200),
 	gravedadHeridas varchar(20) CHECK (gravedadHeridas IN ('Leve', 'Moderada', 'Grave')), 
 	hospitalizacion bit,
 	usoDeObjetos bit,
-	medidasPrevias bit,
 	agresores bit,
 	objetos varchar(50),
 	descripcion varchar(1000)
@@ -92,7 +90,6 @@ SELECT
 	'Testigos: ' + CASE WHEN dd.testigos = 1 THEN 'Sí' ELSE 'No' END + CHAR(13) +
 	'Frecuencia: ' + dd.frecuencia + CHAR(13) +
 	'Medio: ' + ISNULL(dd.medio, 'No especificado') + CHAR(13) +
-	'Duración aproximada: ' + dd.duracionAproximada + CHAR(13) +
 	CHAR(13) +
 	'Descripcion' + CHAR(13) +
 	dd.descripcion
@@ -140,8 +137,6 @@ SELECT
 	CHAR(13) +
 	'Testigos: ' + CASE WHEN dd.testigos = 1 THEN 'Sí' ELSE 'No' END + CHAR(13) +
 	'Frecuencia: ' + dd.frecuencia + CHAR(13) +
-	'Duración aproximada: ' + dd.duracionAproximada + CHAR(13) +
-	'Se tomaron medidas previas: ' + CASE WHEN dd.medidasPrevias = 1 THEN 'Sí' ELSE 'No' END + CHAR(13) +
 	CHAR(13) +
 	'Descripcion' + CHAR(13) +
 	dd.descripcion
@@ -191,10 +186,8 @@ SELECT
 	'Relación con agresor: ' + ISNULL(dd.relacionAgresor, 'Desconocida') + CHAR(13) +
 	CHAR(13) +
 	'Testigos: ' + CASE WHEN dd.testigos = 1 THEN 'Sí' ELSE 'No' END + CHAR(13) +
-	'Duración aproximada: ' + ISNULL(dd.duracionAproximada, 'No especificado') + CHAR(13) +
 	'Sintomas: '+ ISNULL(dd.sintomas, 'No especficados') + CHAR(13) +
 	'Hospitalización: ' + CASE WHEN dd.hospitalizacion = 1 THEN 'Sí' ELSE 'No' END + CHAR(13) +
-	'Se tomaron medidas previas: ' + CASE WHEN dd.medidasPrevias = 1 THEN 'Sí' ELSE 'No' END + CHAR(13) +
 	CHAR(13) +
 	'Descripcion' + CHAR(13) +
 	dd.descripcion
@@ -247,7 +240,6 @@ SELECT
 	'Gravedad de las heridas: ' + dd.gravedadHeridas + CHAR(13) +
 	'Hospitalización: ' + CASE WHEN dd.hospitalizacion = 1 THEN 'Sí' ELSE 'No' END + CHAR(13) +
 	'Menores involucrados: ' + CASE WHEN dd.menoresInvolucrados = 1 THEN 'Sí' ELSE 'No' END + CHAR(13) +
-	'Se tomaron medidas previas: ' + CASE WHEN dd.medidasPrevias = 1 THEN 'Sí' ELSE 'No' END + CHAR(13) +
 	CHAR(13) +
 	'Descripcion' + CHAR(13) +
 	dd.descripcion
@@ -297,9 +289,7 @@ SELECT
 	CHAR(13) +
 	'Frecuencia: ' + dd.frecuencia + CHAR(13) +
 	'Sintomas: ' +  ISNULL(dd.sintomas, 'No especificados') + CHAR(13) + 
-	'Duración aproximada: ' + ISNULL(dd.duracionAproximada, 'No especificado') + CHAR(13) +
 	'Hospitalización: ' + CASE WHEN dd.hospitalizacion = 1 THEN 'Sí' ELSE 'No' END + CHAR(13) + 
-	'Se tomaron medidas previas: ' + CASE WHEN dd.medidasPrevias = 1 THEN 'Sí' ELSE 'No' END + CHAR(13) +
 	CHAR(13) +
 	'Descripcion' + CHAR(13) +
 	dd.descripcion
@@ -349,7 +339,6 @@ SELECT
 	'Relación con agresor: ' + ISNULL(dd.relacionAgresor, 'Desconocida') + CHAR(13) +
 	CHAR(13) +
 	'Testigos: ' + CASE WHEN dd.testigos = 1 THEN 'Sí' ELSE 'No' END + CHAR(13)+
-	'Duración aproximada: ' + ISNULL(dd.duracionAproximada, 'No especificado') + CHAR(13) +
 	'Uso de objetos: ' + CASE WHEN dd.usoDeObjetos = 1 THEN 'Sí' ELSE 'No' END + CHAR(13) +
 	'Objetos: ' + ISNULL(dd.objetos, 'No especificados') + CHAR(13) + 
 	'Heridas: ' + dd.heridas + CHAR(13) +
